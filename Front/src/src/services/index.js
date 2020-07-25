@@ -1,5 +1,5 @@
-import { API } from '../config';
-import axios from 'axios';
+import axios from 'axios'
+import { API } from '../config'
 
 export const importCsvService = async(formData, callback) => {
   const config = {
@@ -9,13 +9,13 @@ export const importCsvService = async(formData, callback) => {
       'Content-Type': 'multipart/form-data',
       'Accept': '*/*'
     }
-  };
+  }
   await axios.post(`${API}/places/import`, formData, config)
-    .then(function (response) {
-      callback(response.data);
+    .then((response) => {
+      callback(response.data)
     }).catch(err => {
-      console.error({ err });
-    });
+      console.error({ err })
+    })
 }
 
 export const getGrid = async(callback) => {
@@ -26,11 +26,11 @@ export const getGrid = async(callback) => {
       'Content-Type': 'multipart/form-data',
       'Accept': '*/*'
     }
-  };
+  }
   await axios.get(`${API}/places/grid`, config)
-    .then(function (response) {
-      callback(response.data);
+    .then((response) => {
+      callback(response.data)
     }).catch(err => {
-      console.error({ err });
-    });
+      console.error({ err })
+    })
 }

@@ -1,62 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import Alert from 'react-bootstrap/Alert';
-import Form from 'react-bootstrap/Form';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { importCsvService, getGrid } from './services';
-import { API } from './config';
-
-//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+import React, { useEffect, useState } from 'react'
+import './App.css'
+import Button from 'react-bootstrap/Button'
+import Table from 'react-bootstrap/Table'
+import Alert from 'react-bootstrap/Alert'
+import Form from 'react-bootstrap/Form'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { importCsvService, getGrid } from './services'
+import { API } from './config'
 
 function App() {
-  let file = '';
-  const [grid, setGrid] = useState([]);
-  const [selected, setSelected] = useState([]);
+  let file = ''
+  const [grid, setGrid] = useState([])
+  const [selected, setSelected] = useState([])
   
   useEffect(() => {
-      getGrid(setGrid);
-  }, []);
+      getGrid(setGrid)
+  }, [])
 
   async function importCsv() {
     if (!file) {
-      alert('Escolha um Arquivo');
-      return;
+      alert('Escolha um Arquivo')
+      return
     }
-    let formData = new FormData();
-    formData.append("file", file);
-    importCsvService(formData, setGrid);
+    const formData = new FormData()
+    formData.append('file', file)
+    importCsvService(formData, setGrid)
   }
   async function changeSelected(id) {
-    const old = selected;
-    await setSelected([]);
+    const old = selected
+    await setSelected([])
     if (selected.includes(id)) {
-      const removed = old.filter(element => (element !== id));
-      return await setSelected(removed);
+      const removed = old.filter(element => (element !== id))
+      return await setSelected(removed)
     }
     if (old.length >= 2) {
-      setSelected(old);
-      return;
+      setSelected(old)
+      return
     }
-    let added = old;
-    added.push(id);
-    return await setSelected(added);
+    const added = old
+    added.push(id)
+    return await setSelected(added)
   }
 
   function getSelectedStyle(id) {
-    return selected.includes(id) ? 'warning' : 'secondary';
+    return selected.includes(id) ? 'warning' : 'secondary'
   }
 
   function showRoute() {
     if (selected.length !== 2) {
-      return;
+      return
     }
-    const objFrom = grid.find(element => element.id === selected[0]);
-    const objTo = grid.find(element => element.id === selected[1]);
-    const from = `${objFrom.street}, ${objFrom.number} - ${objFrom.district}, ${objFrom.city} - ${objFrom.zip}`;
-    const to = `${objTo.street}, ${objTo.number} - ${objTo.district}, ${objTo.city} - ${objTo.zip}`;
-    window.open(`https://www.google.com/maps/dir/${from}/${to}`, "_blank");
+    const objFrom = grid.find(element => element.id === selected[0])
+    const objTo = grid.find(element => element.id === selected[1])
+    const from = `${objFrom.street}, ${objFrom.number} - ${objFrom.district}, ${objFrom.city} - ${objFrom.zip}`
+    const to = `${objTo.street}, ${objTo.number} - ${objTo.district}, ${objTo.city} - ${objTo.zip}`
+    window.open(`https://www.google.com/maps/dir/${from}/${to}`, '_blank')
   }
 
   return (
@@ -125,11 +123,11 @@ function App() {
           </tbody>
         </Table>
         <Alert className='menu' variant='dark'>
-          <Button onClick={() => window.open(`${API}/places/export`, "_self")} variant="danger">Exportar</Button>
+          <Button onClick={() => window.open(`${API}/places/export`, '_self')} variant="danger">Exportar</Button>
         </Alert>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

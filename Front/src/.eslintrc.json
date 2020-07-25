@@ -4,11 +4,16 @@
     "es2020": true,
     "node": false
   },
-  "extends": ["airbnb-base"],
+  "extends": ["airbnb-base", "prettier", "prettier/react"],
   "parserOptions": {
-    "ecmaVersion": 11
+    "ecmaVersion": 11,
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
+
+    "prettier/prettier": ["error"],
     "no-console": 0,
     "quotes": ["error", "single"],
     "object-shorthand": 0,
