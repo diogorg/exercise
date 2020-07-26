@@ -1,5 +1,25 @@
-# exercise
+# Exercicio de teste React e Laravel com Docker.
 
-Just a simple exercise to upload and import a CSV file to populate places into backend.
-Select 2 places to show in google maps the route.
-You can import more data ou export the total CSV Database.
+Exercicio simples com front e back. Possíbilitando importar uma planilha CSV para o BD com endereços e após isso permitir ver a rota entre dois endereços.
+
+# START BACK:
+
+```shell
+- cp .env.example .env
+- sudo chmod 777 storage/logs/ -R 
+- sudo chmod 777 storage/framework -R 
+- docker-compose build
+- docker-compose up
+- docker exec -it eleven-php_app_1 bash
+- composer update
+- php artisan key:generate
+- php artisan migrate:refresh
+- php artisan db:seed
+```
+
+# START FRONT:
+
+```shell
+- yarn install
+- yarn start
+```
