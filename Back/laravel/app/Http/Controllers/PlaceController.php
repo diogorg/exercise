@@ -30,8 +30,13 @@ class PlaceController extends Controller
         }
         $places = $this->getArrayPlaces($file);
         $entity = new Places();
-        foreach ($places as $placeLine) {
-            $entity->saveFromCsvLine($placeLine);
+        try {
+            foreach ($places as $placeLine) {
+                $entity->saveFromCsvLine($placeLine);
+            }
+        } catch (\Exception $e) {
+            $e = new \Exception('Invalid CSV Format', 422);
+            throw $e;
         }
         return $this->grid();
     }
